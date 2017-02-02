@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<extension id="multi_user_edit" status="released" xmlns="http://getsymphony.com/schemas/extension/1.0">
+	<name>Multi User Edit</name>
+	<description>Multi User Edit</description>
+	<repo type="github">https://github.com/symphonycms/debugdevkit</repo>
+	<types>
+		<type>Workflow</type>
+	</types>
+	<authors>
+		<author>
+			<name github="seanvella" symphony="seanvella">Sean Vella</name>
+			<website>http://www.getsymphony.com</website>
+		</author>
+	</authors>
+	<releases>
+		<release version="1.0" date="2017-01-25" min="2.4" max="2.x.x">
+			- Initial Release
+		</release>
+	</releases>
+</extension>
