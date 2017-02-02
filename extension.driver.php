@@ -46,10 +46,12 @@
 		}
 
 		public function preRender($context) {
-			Symphony::Log()->pushToLog('test');
+			
+			// var_dump($context);die;
+
 			$entry_id = $context['entry']->get('id');
 
-			//Check if the entry id is being used by another author.
+			//Check if the entry id is already created in the table.
 
 			$query = "SELECT count(multi.entry_id) as count 
 			 			FROM tbl_multi_user as multi
@@ -60,9 +62,9 @@
             $count = Symphony::Database()->fetchVar('count',0,$query);
 
             if ($count == 0){
-            	//Add the user and entry id to the database.
+            	//Add the user and entry id to the database. Adding 0 as a temporary value for author.
 				 $query = "INSERT INTO tbl_multi_user (user_id, entry_id)
-							VALUES ('1', $entry_id)";
+							VALUES ('0', $entry_id)";
 
 	            if(Symphony::Database()->query($query) == TRUE){
 	            	return true;
@@ -71,8 +73,11 @@
 	            return false;
             }
             else{
-            	//Entry is already being edited.
+            	//Entry is already in DB.
             }
+
+            //Add JS to the page.
+			Administration::instance()->Page->addScriptToHead(URL . '/extensions/multi_user_edit/assets/multi_user.js', 3134);
 
 			
 		}
