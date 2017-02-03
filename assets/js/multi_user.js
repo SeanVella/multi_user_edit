@@ -9,9 +9,11 @@ jQuery(document).ready(function($) {
 	//send User info
 	console.log('test');
 
+	var ajaxURL = Symphony.Context.get('symphony') + '/extension/multi_user_edit/multi_user/';
+
 	$.ajax({
 	    method: 'GET',
-	    url: '/web/extensions/multi_user_edit/content/multi_user.php',
+	    url: ajaxURL,
 	    data: {
 	      id: id,
 	      name: name,

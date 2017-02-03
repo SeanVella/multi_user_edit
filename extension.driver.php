@@ -1,6 +1,6 @@
 <?php
 
-	class Extension_Multi_User_Edit extends Extension {
+	class extension_multi_user_edit extends Extension {
 	/*-------------------------------------------------------------------------
 		Definition:
 	-------------------------------------------------------------------------*/
@@ -77,7 +77,7 @@
             }
 
             //Add JS to the page.
-			Administration::instance()->Page->addScriptToHead(URL . '/extensions/multi_user_edit/assets/multi_user.js', 3134);
+			Administration::instance()->Page->addScriptToHead(URL . '/extensions/multi_user_edit/assets/js/multi_user.js', 3134);
 
 			
 		}
