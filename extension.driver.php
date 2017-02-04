@@ -48,8 +48,6 @@
 
 		public function preRender($context) {
 			
-			// var_dump($context);die;
-
 			$entry_id = $context['entry']->get('id');
 
 			//Check if the entry id is already created in the table.
@@ -58,12 +56,10 @@
 			 			FROM tbl_multi_user as multi
 			 			WHERE multi.entry_id = '". $entry_id ."'";
 
-            
-
             $count = Symphony::Database()->fetchVar('count',0,$query);
 
             if ($count == 0){
-            	//Add the user and entry id to the database. Adding 0 as a temporary value for author.
+            	//Add the entry id to the database. Adding 0 as a temporary value for author.
 				 $query = "INSERT INTO tbl_multi_user (user_id, entry_id)
 							VALUES ('0', $entry_id)";
 
@@ -86,16 +82,12 @@
 		public function postEdit($context) {
 			$entry_id = $context['entry']->get('id');
 
-			//Delete all the entries related to this entry.
+			//Release lock.
+			$update = array();
+			$update['user_id'] = intval('0');
+			$update['session_start'] = date('0');
 
-			$query = "DELETE FROM tbl_multi_user
-		 			WHERE multi.entry_id = '". $entry_id ."'";
-
-            if(Symphony::Database()->query($query) == TRUE){
-            	return true;
-            }
-
-            return false;
+			Symphony::Database()->update($update, 'sym_multi_user', "`entry_id` = ".$entry_id);
 
 		}
 	}
