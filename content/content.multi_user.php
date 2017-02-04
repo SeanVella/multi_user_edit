@@ -6,15 +6,18 @@
 
 		public function __viewIndex() {
 
-			$userId = $_GET['id'];
-			$entryId = $_GET['entry'];
+			$userId = MySQL::cleanValue($_GET['id']);
+			$entryId = MySQL::cleanValue($_GET['entry']);
 
-			$query = "UPDATE sym_multi_user 
-					SET user_id = ".$userId."
-					WHERE entry_id = ".$entryId;
+			$update = array();
+			$update['user_id'] = intval($userId);
 
-			if(Symphony::Database()->query($query) == TRUE){
-				var_dump('Success');
+
+			if(Symphony::Database()->update($update, 'sym_multi_user', "`entry_id` = ".$entryId)){
+				echo('Success');
+			}
+			else{
+				echo('error');
 			}
 			die;
 		}
