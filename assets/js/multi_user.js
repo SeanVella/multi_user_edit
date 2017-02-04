@@ -51,8 +51,8 @@ jQuery(document).ready(function($) {
 	    		//if locked, get difference in minutes
 	    		diff = response.find('#diff').text();
 	    		if(diff > 5){
-	    			//Gain access to the article as author is taking too long.
-	    			console.log('Exceeded 5 minutes; Updated log.')
+	    			//Gain access to the article as other author is taking too long.
+	    			console.log('Exceeded 5 minutes; Updated entry.')
 	    			saveUser(id, entry, ajaxURL);
 	    		}
 	    		else{

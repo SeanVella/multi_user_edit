@@ -2,14 +2,14 @@
 <extension id="multi_user_edit" status="released" xmlns="http://getsymphony.com/schemas/extension/1.0">
 	<name>Multi User Edit</name>
 	<description>Multi User Edit</description>
-	<repo type="github">https://github.com/symphonycms/debugdevkit</repo>
+	<repo type="github">https://github.com/SeanVella/multi_user_check</repo>
 	<types>
 		<type>Workflow</type>
 	</types>
 	<authors>
 		<author>
 			<name github="seanvella" symphony="seanvella">Sean Vella</name>
-			<website>http://www.getsymphony.com</website>
+			<website>http://www.maze.digital</website>
 		</author>
 	</authors>
 	<releases>
