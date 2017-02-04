@@ -9,8 +9,14 @@
 			$userId = MySQL::cleanValue($_GET['id']);
 			$entryId = MySQL::cleanValue($_GET['entry']);
 
+			//Get current time
+			$region = Symphony::Configuration()->get('timezone', 'region');
+			date_default_timezone_set($region);
+			$dateTime = date('Y/m/d h:i:s', time());
+
 			$update = array();
 			$update['user_id'] = intval($userId);
+			$update['session_start'] = date($dateTime);
 
 
 			if(Symphony::Database()->update($update, 'sym_multi_user', "`entry_id` = ".$entryId)){

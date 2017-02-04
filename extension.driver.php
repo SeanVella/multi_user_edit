@@ -29,6 +29,7 @@
                         `id` int(11) unsigned NOT NULL auto_increment,
                         `user_id` int(11) unsigned NOT NULL,
                         `entry_id` int(11) unsigned NOT NULL,
+                        `session_start` DATETIME() unsigned NOT NULL,
                         PRIMARY KEY  (`id`),
                         KEY `entry_id` (`entry_id`)
                     ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
