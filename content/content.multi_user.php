@@ -59,6 +59,11 @@ Class contentExtensionMulti_User_EditMulti_User extends AdministrationPage {
 			}
 			die;
 		}
+
+		if(isset($_GET['getDiff'])){
+			$diff = Symphony::Configuration()->get('wait_time', 'multi_user_edit');
+			echo('<div class="diff">'.$diff.'</div>');die;
+		}
 	}
 
 }

@@ -28,15 +28,27 @@ jQuery(document).ready(function($) {
 			}, 300000);
 	}
 	
-
 	//get info
 	id = parseInt($('#session li').eq(0).find('a').attr('href').match(/\/([^\/]+)\/?$/)[1]);
 	// name = $('#session li').eq(0).find('a').text();
 	entry = document.URL.match(/\/([^\/]+)\/?$/)[1];
 	ajaxURL = Symphony.Context.get('symphony') + '/extension/multi_user_edit/multi_user/';
+	var configDiff = 0;
 
-	//start the countdown
-	notifyUser(id, entry, ajaxURL);
+	//Get minutes to wait from config
+	$.ajax({
+	    method: 'GET',
+	    url: ajaxURL,
+	    data: {
+	      getDiff: 1
+	    },
+	    success: function(response){
+	    	response = $(response);
+	    	if(response.hasClass('diff')){
+	    		configDiff = parseInt(response.text());
+	    	}
+	    }
+	});
 
 	//Check if the entry is being used by another author
 	$.ajax({
@@ -50,27 +62,27 @@ jQuery(document).ready(function($) {
 	    	if(response.hasClass('locked')){
 	    		//if locked, get difference in minutes
 	    		diff = response.find('#diff').text();
-	    		if(diff > 5){
+	    		if(diff > configDiff){
 	    			//Gain access to the article as other author is taking too long.
-	    			console.log('Exceeded 5 minutes; Updated entry.')
+	    			console.log('Exceeded 5 minutes; Updated entry.');
+	    			//start the countdown
+					notifyUser(id, entry, ajaxURL);
+					//save a new entry in DB
 	    			saveUser(id, entry, ajaxURL);
 	    		}
 	    		else{
-	    			alert(response.find('.show').text() +' '+ (5 - diff).toFixed(2) + ' minute/s to go. (Refreshing when timer is done)');
+	    			alert(response.find('.show').text() +' '+ (configDiff - diff).toFixed(2) + ' minute/s to go. (Refreshing when timer is done)');
 	    			$('input[type="submit"], button[type="submit"]').attr('disabled','disabled');
 
-	    			newDiff = (5 - diff).toFixed(2) + " ";
+	    			newDiff = (configDiff - diff).toFixed(2) + " ";
 
 	    			arr = newDiff.split('.');
 	    		
-	    			var count = 0;
 	    			var seconds = (parseInt(arr[0] * 60) + parseInt(arr[1])) * 1000;
 
 					function timeout() {
 					    setTimeout(function () {
-					        count += 1;
 					        location.reload();
-					        // console.log('reload');
 					        timeout();
 					    }, seconds);
 					};
